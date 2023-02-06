@@ -97,7 +97,7 @@ function app() {
 }
 
 const setSizes = () => {
-    scenes =  Array.from(container.children);
+    scenes = Array.from(container.children);
     const width = 45 * scenes.length;
     const itemWidth = 45 * (scenario.offsetWidth / container.offsetWidth);
     container.style.width = `${width}%`;
