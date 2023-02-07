@@ -96,10 +96,18 @@ function app() {
     }
 }
 
-const setSizes = () => {
+const setSizes = (isFirstElement) => {
     scenes = Array.from(container.children);
-    const width = 45 * scenes.length;
-    const itemWidth = 45 * (scenario.offsetWidth / container.offsetWidth);
+    let width;
+    let itemWidth;
+    if (isFirstElement) {
+        width = 63 * scenes.length;
+        itemWidth = 63 * (scenario.offsetWidth / container.offsetWidth);
+    } else {
+        width = 45 * scenes.length;
+        itemWidth = 45 * (scenario.offsetWidth / container.offsetWidth);
+    }
+
     container.style.width = `${width}%`;
     scenes.forEach((scene) => {
         scene.style.width = `${itemWidth}%`;
@@ -132,12 +140,12 @@ function loadStreams(streams) {
             video.src = stream.mediaFile;
             video.oncanplay = (event) => {
                 if (isFirstElement) {
-                    isFirstElement = false;
                     video.classList.add('border-6');
                 }
                 scene.appendChild(video);
                 container.appendChild(scene);
-                setSizes();
+                setSizes(isFirstElement);
+                isFirstElement = false;
             };
         } else {
             console.log("The items received are not enough, a 'name' and 'mediaFile' are expected.");
